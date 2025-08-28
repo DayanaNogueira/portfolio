@@ -1,204 +1,263 @@
-import type { About, Blog, Gallery, Home, Newsletter, Person, Social, Work } from "@/types";
-import { Fragment } from "react";
+import type { IconName } from "@/resources/icons";
+import type { zones } from "tzdata";
 
-const person: Person = {
-  firstName: "Dayana",
-  lastName: "Nogueira",
-  name: "Dayana Nogueira",
-  role: "Desenvolvedora Full Stack & Front-end",
-  avatar: "https://i.pinimg.com/1200x/3d/b4/73/3db4735760242f45e7ea4da5434df2d0.jpg",
-  email: "nogueira.dayana08@gmail.com",
-  location: "America/Belem",
-  languages: ["Português", "Inglês"],
+/**
+ * IANA time zone string (e.g., 'Asia/Calcutta', 'Europe/Vienna').
+ * See: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+ */
+export type IANATimeZone = Extract<keyof typeof zones, string>; // Narrow to string keys for React usage
+
+/**
+ * Represents a person featured in the portfolio.
+ */
+export type Person = {
+  /** First name of the person */
+  firstName: string;
+  /** Last name of the person */
+  lastName: string;
+  /** The name you want to display, allows variations like nicknames */
+  name: string;
+  /** Role or job title */
+  role: string;
+  /** Path to avatar image */
+  avatar: string;
+  /** Email address */
+  email: string;
+  /** IANA time zone location */
+  location: IANATimeZone;
+  /** Languages spoken */
+  languages?: string[];
 };
 
-const newsletter: Newsletter = {
-  display: false,
-  title: <>Inscreva-se na Newsletter de {person.firstName}</>,
-  description: <>Minha newsletter semanal sobre criatividade e engenharia.</>,
+/**
+ * Newsletter Section
+ * @description The below information will be displayed on the Home page in Newsletter block
+ */
+export type Newsletter = {
+  /** Whether to display the newsletter section */
+  display: boolean;
+  /** Title of the newsletter  */
+  title: React.ReactNode;
+  /** Description of the newsletter */
+  description: React.ReactNode;
 };
 
-const social: Social = [
-  {
-    name: "GitHub",
-    icon: "github",
-    link: "https://github.com/DayanaNogueira",
-  },
-  {
-    name: "LinkedIn",
-    icon: "linkedin",
-    link: "https://www.linkedin.com/in/dayana-nogueira-2744b3363/",
-  },
-  {
-    name: "Email",
-    icon: "email",
-    link: `mailto:${person.email}`,
-  },
-];
+/**
+ * Social link configuration.
+ */
+export type Social = Array<{
+  /** Name of the social platform */
+  name: string;
+  /** Icon for the social platform
+   * The icons are a part of "src/resources/icons.ts" file.
+   * If you need a different icon, import it there and reference it everywhere else
+   */
+  icon: IconName;
+  /**
+   * The link to the social platform
+   *
+   * The link is not validated by code, make sure it's correct
+   */
+  link: string;
+}>;
 
-const home: Home = {
-  path: "/",
-  image: "/images/og/home.jpg",
-  label: "Início",
-  title: `Portfólio de ${person.name}`,
-  description: `Site de portfólio exibindo meu trabalho como ${person.role}`,
-  headline: (
-    <span className="animate-fadeIn">
-      Construindo pontes entre design e código.
-    </span>
-  ),
-  subline: (
-    <span className="animate-slideUp delay-200">
-      Eu sou a Dayana, uma desenvolvedora Full-Stack. Eu uso código{" "}
-      <i
-        className="fas fa-code text-primary transition-transform duration-300 hover:scale-125"
-      />{" "}
-      para criar
-      <br />
-      experiências de usuário intuitivas e funcionais.
-    </span>
-  ),
+/**
+ * Base interface for page configuration with common properties.
+ */
+export interface BasePageConfig {
+  /** Path to the page
+   *
+   * The path should be relative to the public directory
+   */
+  path: `/${string}` | string;
+  /** Label for navigation or display */
+  label: string;
+  /** Title of the page */
+  title: string;
+  /** Description for SEO and metadata */
+  description: string;
+  /** OG Image should be put inside `public/images` folder */
+  image?: `/images/${string}` | string;
+}
+
+/**
+ * Home page configuration.
+ */
+export interface Home extends BasePageConfig {
+  /** The image to be displayed in metadata
+   *
+   * The image needs to be put inside `/public/images/` directory
+   */
+  image: `/images/${string}` | string;
+  /** The headline of the home page */
+  headline: React.ReactNode;
+  /** Featured badge, which appears above the headline */
   featured: {
-    display: true,
-    title: (
-      <span className="transition-colors duration-300 hover:text-primary">
-        Meu Caderno de Receitas
-      </span>
-    ),
-    href: "https://dayananogueira.github.io/site-receitas/",
-  },
-};
+    display: boolean;
+    title: React.ReactNode;
+    href: string;
+  };
+  /** The sub text which appears below the headline */
+  subline: React.ReactNode;
+}
 
-const about: About = {
-  path: "/about",
-  label: "Sobre",
-  title: `Sobre – ${person.name}`,
-  description: `Conheça ${person.name}, ${person.role} de ${person.location}`,
+/**
+ * About page configuration.
+ * @description Configuration for the About page, including sections for table of contents, avatar, calendar, introduction, work experience, studies, and technical skills.
+ */
+export interface About extends BasePageConfig {
+  /** Table of contents configuration */
   tableOfContent: {
-    display: true,
-    subItems: false,
-  },
+    /** Whether to display the table of contents */
+    display: boolean;
+    /** Whether to show sub-items in the table of contents */
+    subItems: boolean;
+  };
+  /** Avatar section configuration */
   avatar: {
-    display: true,
-  },
+    /** Whether to display the avatar */
+    display: boolean;
+  };
+  /** Calendar section configuration */
   calendar: {
-    display: false,
-    link: "https://cal.com",
-  },
+    /** Whether to display the calendar */
+    display: boolean;
+    /** Link to the calendar */
+    link: string;
+  };
+  /** Introduction section */
   intro: {
-    display: true,
-    title: "Apresentação",
-    description: (
-      <p className="animate-fadeInUp">
-        Sou a Dayana, uma desenvolvedora full stack de Belém que adora
-        transformar ideias em realidade digital. Minha paixão é criar
-        interfaces intuitivas e funcionais, unindo design e código
-        para resolver desafios e construir experiências incríveis.
-      </p>
-    ),
-  },
+    /** Whether to display the introduction */
+    display: boolean;
+    /** Title of the introduction section */
+    title: string;
+    /** Description of the introduction section */
+    description: React.ReactNode;
+  };
+  /** Work experience section */
   work: {
-    display: false,
-    title: "Experiência Profissional",
-    experiences: [],
-  },
+    /** Whether to display work experience */
+    display: boolean;
+    /** Title for the work experience section */
+    title: string;
+    /** List of work experiences */
+    experiences: Array<{
+      /** Company name */
+      company: string;
+      /** Timeframe of employment */
+      timeframe: string;
+      /** Role or job title */
+      role: string;
+      /** Achievements at the company */
+      achievements: React.ReactNode[];
+      /** Images related to the experience */
+      images?: Array<{
+        /** Image source path */
+        src: string;
+        /** Image alt text */
+        alt: string;
+        /** Image width ratio */
+        width: number;
+        /** Image height ratio */
+        height: number;
+      }>;
+    }>;
+  };
+  /** Studies/education section */
   studies: {
-    display: true,
-    title: "Formação e Certificados",
-    institutions: [
-      {
-        name: "DIO - Digital Innovation One",
-        description: (
-          <span className="animate-fadeIn delay-100">
-            Concluiu os cursos "Entendendo Comunicação Client x Server" com 2 horas de carga horária e "Introdução ao Desenvolvimento Front-end com a Ri Happy" com 1 hora de carga horária.
-          </span>
-        ),
-      },
-      {
-        name: "EF Education First",
-        description: (
-          <span className="animate-fadeIn delay-200">
-            Obteve a certificação em General English, Nível 1 (Iniciante) - CEFR Nível A1.
-          </span>
-        ),
-      },
-      {
-        name: "Rocketseat",
-        description: (
-          <span className="animate-fadeIn delay-300">
-            Certificação em React & Next.js: Desenvolvimento de aplicações web modernas com React, Next.js e integração com APIs.
-          </span>
-        ),
-      },
-      {
-        name: "Udemy",
-        description: (
-          <span className="animate-fadeIn delay-400">
-            Certificação Full Stack: Curso abrangente cobrindo Node.js, Express, MongoDB e boas práticas de back-end.
-          </span>
-        ),
-      },
-    ],
-  },
+    /** Whether to display studies section */
+    display: boolean;
+    /** Title for the studies section */
+    title: string;
+    /** List of institutions attended */
+    institutions: Array<{
+      /** Institution name */
+      name: string;
+      /** Description of studies */
+      description: React.ReactNode;
+    }>;
+  };
+  /** Technical skills section */
   technical: {
-    display: true,
-    title: "Habilidades Técnicas",
-    skills: [
-      {
-        title: "Linguagens",
-        description: (
-          <span className="animate-slideUp delay-500">
-            Python, HTML, CSS, C#, C++, JavaScript, e conhecimento em comunicação Client x Server.
-          </span>
-        ),
-        tags: [
-          { name: "Python", icon: "python" },
-          { name: "C#", icon: "csharp" },
-          { name: "C++", icon: "cplusplus" },
-          { name: "JavaScript", icon: "javascript" },
-          { name: "HTML", icon: "html5" },
-          { name: "CSS", icon: "css3" },
-        ],
-        images: [],
-      },
-      {
-        title: "Desenvolvimento Web",
-        description: (
-          <span className="animate-slideUp delay-600">
-            Experiência na construção de interfaces com Next.js, React e Figma.
-          </span>
-        ),
-        tags: [
-          { name: "Next.js", icon: "nextjs" },
-          { name: "React", icon: "react" },
-          { name: "Figma", icon: "figma" },
-        ],
-        images: [],
-      },
-    ],
-  },
-};
+    /** Whether to display technical skills section */
+    display: boolean;
+    /** Title for the technical skills section */
+    title: string;
+    /** List of technical skills */
+    skills: Array<{
+      /** Skill title */
+      title: string;
+      /** Skill description */
+      description?: React.ReactNode;
+      /** Skill tags */
+      tags?: Array<{
+        name: string;
+        icon?: string;
+      }>;
+      /** Images related to the skill */
+      images?: Array<{
+        /** Image source path */
+        src: string;
+        /** Image alt text */
+        alt: string;
+        /** Image width ratio */
+        width: number;
+        /** Image height ratio */
+        height: number;
+      }>;
+    }>;
+  };
+}
 
-const blog: Blog = {
-  path: "/blog",
-  label: "Blog",
-  title: "Escrevendo sobre design e tecnologia...",
-  description: `Leia o que ${person.name} tem feito recentemente`,
-};
+/**
+ * Blog page configuration.
+ * @description Configuration for the Blog page, including metadata and navigation label.
+ */
+export interface Blog extends BasePageConfig {}
 
-const work: Work = {
-  path: "/work",
-  label: "Projetos",
-  title: `Projetos – ${person.name}`,
-  description: `Um site de portfólio para exibir meu único projeto, "Meu Caderno de Receitas".`,
-};
+/**
+ * Work/projects page configuration.
+ * @description Configuration for the Work/Projects page, including metadata and navigation label.
+ */
+export interface Work extends BasePageConfig {
+  /** List of work/project experiences */
+  experiences: Array<{
+    /** Company/Project name */
+    company: string;
+    /** Timeframe of work */
+    timeframe: string;
+    /** Role or title */
+    role: string;
+    /** Achievements or project description */
+    achievements: React.ReactNode[];
+    /** Link to the project or company */
+    link?: string;
+    /** Images related to the experience */
+    images?: Array<{
+      /** Image source path */
+      src: string;
+      /** Image alt text */
+      alt: string;
+      /** Image width ratio */
+      width: number;
+      /** Image height ratio */
+      height: number;
+    }>;
+  }>;
+}
 
-const gallery: Gallery = {
-  path: "/gallery",
-  label: "Galeria",
-  title: `Galeria de fotos – ${person.name}`,
-  description: `Uma coleção de fotos por ${person.name}`,
-  images: [],
-};
-
-export { person, social, newsletter, home, about, blog, work, gallery };
+/**
+ * Gallery page configuration.
+ * @description Configuration for the Gallery page, including metadata, navigation label, and image list.
+ */
+export interface Gallery extends BasePageConfig {
+  /** List of images in the gallery */
+  images: Array<{
+    /** Image source path */
+    src: string;
+    /** Image alt text */
+    alt: string;
+    /** Image orientation (horizontal/vertical) */
+    orientation: string;
+  }>;
+}

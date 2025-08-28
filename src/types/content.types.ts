@@ -36,7 +36,7 @@ export type Person = {
 export type Newsletter = {
   /** Whether to display the newsletter section */
   display: boolean;
-  /** Title of the newsletter   */
+  /** Title of the newsletter  */
   title: React.ReactNode;
   /** Description of the newsletter */
   description: React.ReactNode;
@@ -219,7 +219,32 @@ export interface Blog extends BasePageConfig {}
  * Work/projects page configuration.
  * @description Configuration for the Work/Projects page, including metadata and navigation label.
  */
-export interface Work extends BasePageConfig {}
+export interface Work extends BasePageConfig {
+  /** List of work/project experiences */
+  experiences: Array<{
+    /** Company/Project name */
+    company: string;
+    /** Timeframe of work */
+    timeframe: string;
+    /** Role or title */
+    role: string;
+    /** Achievements or project description */
+    achievements: React.ReactNode[];
+    /** Link to the project or company */
+    link?: string;
+    /** Images related to the experience */
+    images?: Array<{
+      /** Image source path */
+      src: string;
+      /** Image alt text */
+      alt: string;
+      /** Image width ratio */
+      width: number;
+      /** Image height ratio */
+      height: number;
+    }>;
+  }>;
+}
 
 /**
  * Gallery page configuration.
