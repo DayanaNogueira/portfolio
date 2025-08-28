@@ -6,7 +6,7 @@ const person: Person = {
   lastName: "Nogueira",
   name: 'Dayana Nogueira',
   role: "Desenvolvedora Full Stack & Front-end",
-  avatar:"https://i.pinimg.com/736x/db/2f/b5/db2fb5d73148b7a672ddaea05fd8c978.jpg",
+  avatar:"https://i.pinimg.com/1200x/3d/b4/73/3db4735760242f45e7ea4da5434df2d0.jpg",
   email: "nogueira.dayana08@gmail.com",
   location: "America/Belem", // Corrigido para o fuso horário de Belém, PA
   languages: ["Português", "Inglês"], // Ajustado para português
