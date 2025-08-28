@@ -1,19 +1,19 @@
-import { About, Blog, Gallery, Home, Newsletter, Person, Social, Work } from "@/types";
+import type { About, Blog, Gallery, Home, Newsletter, Person, Social, Work } from "@/types";
 import { Line, Logo, Row, Text } from "@once-ui-system/core";
 
 const person: Person = {
-  firstName: "Selene",
-  lastName: "Yu",
-  name: `Selene Yu`,
-  role: "Design Engineer",
-  avatar: "/images/avatar.jpg",
-  email: "example@gmail.com",
-  location: "Asia/Jakarta", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-  languages: ["English", "Bahasa"], // optional: Leave the array empty if you don't want to display languages
+  firstName: "Dayana",
+  lastName: "Nogueira",
+  name: 'Dayana Nogueira',
+  role: "Desenvolvedora Full Stack & Front-end",
+  avatar: "https://i.pinimg.com/736x/f9/a0/40/f9a0406a2d3f7e470eb51dc540a463ca.jpg",
+  email: "nogueira.dayana08@gmail.com",
+  location: "America/Belem", // Corrigido para o fuso horário de Belém, PA
+  languages: ["Português", "Inglês"], // Ajustado para português
 };
 
 const newsletter: Newsletter = {
-  display: true,
+  display: false, // set to true to display the newsletter section
   title: <>Subscribe to {person.firstName}'s Newsletter</>,
   description: <>My weekly newsletter about creativity and engineering</>,
 };
@@ -24,17 +24,12 @@ const social: Social = [
   {
     name: "GitHub",
     icon: "github",
-    link: "https://github.com/once-ui-system",
+    link: "https://github.com/DayanaNogueira",
   },
   {
     name: "LinkedIn",
     icon: "linkedin",
-    link: "https://www.linkedin.com/company/once-ui/",
-  },
-  {
-    name: "Threads",
-    icon: "threads",
-    link: "https://www.threads.com/@once_ui",
+    link: "https://www.linkedin.com/in/dayana-nogueira-2744b3363/",
   },
   {
     name: "Email",
@@ -113,10 +108,7 @@ const about: About = {
         timeframe: "2022 - Present",
         role: "Senior Design Engineer",
         achievements: [
-          <>
-            Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user
-            engagement and 30% faster load times.
-          </>,
+          "Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user engagement and 30% faster load times.",
           <>
             Spearheaded the integration of AI tools into design workflows, enabling designers to
             iterate 50% faster.
