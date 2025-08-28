@@ -10,7 +10,7 @@ const person: Person = {
   email: "nogueira.dayana08@gmail.com",
   location: "America/Belem", // Corrigido para o fuso horário de Belém, PA
   languages: ["Português", "Inglês"], // Ajustado para português
-};
+}; 
 
 const newsletter: Newsletter = {
   display: false, // set to true to display the newsletter section
