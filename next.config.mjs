@@ -13,6 +13,15 @@ const nextConfig = {
     compiler: "modern",
     silenceDeprecations: ["legacy-js-api"],
   },
+  // ADICIONAMOS A PERMISSÃO DE IMAGENS AQUI:
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+  },
 };
 
 export default withMDX(nextConfig);
