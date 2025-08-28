@@ -8,7 +8,7 @@ const person: Person = {
   role: "Desenvolvedora Full Stack & Front-end",
   avatar: "https://i.pinimg.com/1200x/3d/b4/73/3db4735760242f45e7ea4da5434df2d0.jpg",
   email: "nogueira.dayana08@gmail.com",
-  location: "America/Belem",
+  location: "America/Belem", // Corrigido para o formato IANA
   languages: ["Português", "Inglês"],
 };
 
@@ -82,7 +82,7 @@ const about: About = {
     display: true,
   },
   calendar: {
-    display: true,
+    display: false,
     link: "https://cal.com",
   },
   intro: {
@@ -98,9 +98,9 @@ const about: About = {
     ),
   },
   work: {
-    display: true,
+    display: false,
     title: "Experiência Profissional",
-    experiences: [], // Deixado vazio para futuras experiências
+    experiences: [],
   },
   studies: {
     display: true,
@@ -198,7 +198,7 @@ const gallery: Gallery = {
   label: "Galeria",
   title: `Galeria de fotos – ${person.name}`,
   description: `Uma coleção de fotos por ${person.name}`,
-  images: [],
+  images: [], // O tipo Gallery não tem uma propriedade para 'link', 'company', etc.
 };
 
 export { person, social, newsletter, home, about, blog, work, gallery };
