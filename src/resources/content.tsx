@@ -186,4 +186,4 @@ export const gallery: Gallery = {
   title: `Galeria de fotos – ${person.name}`,
   description: `Uma coleção de fotos por ${person.name}`,
   images: [],
-};
+};// Correção final de conteúdo
