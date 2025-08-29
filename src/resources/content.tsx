@@ -8,7 +8,7 @@ export const person: Person = {
   role: "Desenvolvedora Full Stack & Front-end",
   avatar: "https://i.pinimg.com/1200x/3d/b4/73/3db4735760242f45e7ea4da5434df2d0.jpg",
   email: "nogueira.dayana08@gmail.com",
-  location: "America/Belem" as const, // garante compatibilidade com IANATimeZone
+  location: "America/Belem" as const,
   languages: ["Português", "Inglês"],
 };
 
@@ -158,7 +158,26 @@ export const work: Work = {
   label: "Projetos",
   title: `Projetos – ${person.name}`,
   description: `Projetos de design e desenvolvimento por ${person.name}`,
-  experiences: [],
+  experiences: [
+    {
+      company: "Meu Caderno de Receitas",
+      timeframe: "2024",
+      role: "Desenvolvedora Front-end",
+      achievements: [
+        "Um site dinâmico e interativo, projetado para ser o seu melhor companheiro na cozinha!",
+        "Filtros inteligentes (Massas, Aves e Sobremesas), busca rápida e favoritos locais.",
+        "Ajuste de porções, modo de preparo detalhado e ações convenientes (compartilhar no WhatsApp ou imprimir)."
+      ],
+      images: [
+        {
+          src: "https://github.com/user-attachments/assets/fba263c3-b023-49cd-89de-06925dece91f",
+          alt: "Preview do site Meu Caderno de Receitas",
+          width: 1354,
+          height: 686
+        }
+      ]
+    },
+  ],
 };
 
 export const gallery: Gallery = {
@@ -168,4 +187,3 @@ export const gallery: Gallery = {
   description: `Uma coleção de fotos por ${person.name}`,
   images: [],
 };
-// Teste de alteração
