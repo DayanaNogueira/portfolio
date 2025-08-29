@@ -168,3 +168,4 @@ export const gallery: Gallery = {
   description: `Uma coleção de fotos por ${person.name}`,
   images: [],
 };
+// Teste de alteração
